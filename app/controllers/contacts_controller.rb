@@ -77,7 +77,6 @@ class ContactsController < ApplicationController
         id: @contact.id,
         nome: @contact.name,
         email: @contact.email,
-        cpf: @contact.cpf,
         sysdate: Time.now
       }
       DeliveryBoy.deliver(log, topic: 'logs')
