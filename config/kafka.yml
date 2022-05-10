@@ -4,6 +4,9 @@ common: &common
   brokers:
     - kafka:9092
 
+# KAFKA brokers to localhost:9092
+    - localhost:9092
+
 development:
   <<: *common
 
