@@ -1,31 +1,10 @@
-<%- model_class = Contact -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+<p style="color: green"><%= notice %></p>
+
+<%= render @contact %>
+
+<div>
+  <%= link_to "Edit this contact", edit_contact_path(@contact) %> |
+  <%= link_to "Back to contacts", contacts_path %>
+
+  <%= button_to "Destroy this contact", @contact, method: :delete %>
 </div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @contact.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:birthday) %>:</strong></dt>
-  <dd><%= @contact.birthday %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
-  <dd><%= @contact.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:mobile) %>:</strong></dt>
-  <dd><%= @contact.mobile %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:message) %>:</strong></dt>
-  <dd><%= @contact.message %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:advertising) %>:</strong></dt>
-  <dd><%= @contact.advertising %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
-  <dd><%= @contact.active %></dd>
-</dl>
-
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              contacts_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_contact_path(@contact), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              contact_path(@contact),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>

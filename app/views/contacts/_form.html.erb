@@ -1,76 +1,47 @@
-<%= form_for @contact, :html => { :class => "form-horizontal contact" } do |f| %>
+<%= form_with(model: contact) do |form| %>
+  <% if contact.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
 
-  <% if @contact.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @contact.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+      <ul>
+        <% contact.errors.each do |error| %>
+          <li><%= error.full_message %></li>
         <% end %>
-        </ul>
-      </div>
+      </ul>
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :name, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :name, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:name) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :birthday, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :birthday, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:birthday) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :email, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :email, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:email) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :mobile, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :mobile, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:mobile) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :message, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_area :message, :rows => 5, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:message) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :advertising, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.check_box :advertising, checked: true %>
-    </div>
-    <%=f.error_span(:advertising) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :active, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.check_box :active, checked: true %>
-    </div>
-    <%=f.error_span(:active) %>
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
   </div>
 
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                contacts_path, :class => 'btn btn-default' %>
-    </div>
+  <div>
+    <%= form.label :cpf, style: "display: block" %>
+    <%= form.text_field :cpf %>
   </div>
 
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :mobile, style: "display: block" %>
+    <%= form.text_field :mobile %>
+  </div>
+
+  <div>
+    <%= form.label :birthday, style: "display: block" %>
+    <%= form.text_field :birthday %>
+  </div>
+
+  <div>
+    <%= form.label :presence, style: "display: block" %>
+    <%= form.text_field :presence %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
 <% end %>
