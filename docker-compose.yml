@@ -51,6 +51,16 @@ services:
     ports:
       - 3000:3000
 
+  mongo:
+    image: mongo
+    container_name: mongo
+    depends_on: 
+    - kafka-cluster    
+    ports:
+      - 27017:27017
+    networks: 
+      - kafka
+
 networks:
   broker-kafka:
     driver: bridge
