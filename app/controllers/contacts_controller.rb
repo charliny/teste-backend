@@ -1,6 +1,5 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: %i[ show edit update destroy ]
-  after_action :kafka_message, only: %i[ create update destroy ]
 
   # GET /contacts or /contacts.json
   def index
@@ -18,12 +17,6 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1/edit
   def edit
-  end
-
-  def search
-    @name = params[:name]
-    @contacts = Contact.where("name like ?",  "%#{@name}%").order(name: :desc)
-    render :index
   end
 
   # POST /contacts or /contacts.json
@@ -72,11 +65,21 @@ class ContactsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def contact_params
-      params.require(:contact).permit(:name, :birthday, :email, :mobile, :message, :advertising, :active)
+      params.require(:contact).permit(:name, :email, :mobile, :birthday, :presence, :cpf)
     end
 
+    # Message Topic KAFKA
     def kafka_message
       message = @contact.destroyed? ? @contact.as_json.merge({destroyed: true}).to_json : @contact.as_json.to_json
       DeliveryBoy.deliver(message, topic: 'contacts_message')
+
+      log = {
+        id: @contact.id,
+        nome: @contact.name,
+        email: @contact.email,
+        cpf: @contact.cpf,
+        sysdate: Time.now
+      }
+      DeliveryBoy.deliver(log, topic: 'logs')
     end
 end
